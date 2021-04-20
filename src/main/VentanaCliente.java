@@ -256,13 +256,6 @@ Entidad actual = new Cliente();
 			this.jtfApellidos.setText(((Cliente) this.actual).getApellidos());
 			this.jtfLocalidad.setText(((Cliente) this.actual).getLocalidad());
 			this.jtfFechaNac.setText(((Cliente) this.actual).getFechaNac());
-			
-			// Carga del fabricante
-			for (int i = 0; i < this.jcbCliente.getItemCount(); i++) {
-				if (this.actual.getId() == this.jcbCliente.getItemAt(i).getId()) {
-					this.jcbCliente.setSelectedIndex(i);
-				}
-			}
 		}
 	}
 

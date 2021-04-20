@@ -213,13 +213,6 @@ public class VentanaCoche extends JPanel {
 			this.jtfBastidor.setText(this.actual.getBastidor());
 			this.jtfModelo.setText(this.actual.getModelo());
 			this.jtfColor.setText(this.actual.getColor());
-			
-			// Carga del fabricante
-			for (int i = 0; i < this.jcbFabricante.getItemCount(); i++) {
-				if (this.actual.getFabricante().getId() == this.jcbFabricante.getItemAt(i).getId()) {
-					this.jcbFabricante.setSelectedIndex(i);
-				}
-			}
 		}
 	}
 

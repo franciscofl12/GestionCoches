@@ -213,12 +213,6 @@ public class VentanaConcesionario extends JPanel {
 			this.jtfcif.setText(this.actual.getCif());
 			this.jtfLocalidad.setText(this.actual.getLocalidad());
 			this.jtfNombre.setText(this.actual.getNombre());
-			// Carga del fabricante
-			for (int i = 0; i < this.jcbVenta.getItemCount(); i++) {
-				if (((Concesionario) this.actual.getVentas()).getId() == this.jcbVenta.getItemAt(i).getId()) {
-					this.jcbVenta.setSelectedIndex(i);
-				}
-			}
 		}
 	}
 

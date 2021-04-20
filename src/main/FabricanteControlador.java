@@ -1,30 +1,26 @@
 package main;
 
-import java.sql.Connection;
-
 import java.util.List;
-
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import main.Controlador;
 import model.entities.Fabricante;
 
 public class FabricanteControlador extends Controlador {
 
 	private static FabricanteControlador controlador = null;
 
-	public FabricanteControlador () {
+	public FabricanteControlador() {
 		super(Fabricante.class, "VentaDeCoches");
 	}
-	
+
 	/**
 	 * 
 	 * @return
 	 */
-	public static FabricanteControlador getControlador () {
+	public static FabricanteControlador getControlador() {
 		if (controlador == null) {
 			controlador = new FabricanteControlador();
 		}
@@ -34,92 +30,78 @@ public class FabricanteControlador extends Controlador {
 	/**
 	 *  
 	 */
-	public Fabricante find (int id) {
+	public Fabricante find(int id) {
 		return (Fabricante) super.find(id);
 	}
 
-	
 	/**
 	 * 
 	 * @return
 	 */
-	public Fabricante findFirst () {
+	public Fabricante findFirst() {
 		try {
 			EntityManager em = getEntityManagerFactory().createEntityManager();
 			Query q = em.createQuery("SELECT c FROM Fabricante c order by c.id", Fabricante.class);
 			Fabricante resultado = (Fabricante) q.setMaxResults(1).getSingleResult();
 			em.close();
 			return resultado;
-		}
-		catch (NoResultException nrEx) {
+		} catch (NoResultException nrEx) {
 			return null;
 		}
 	}
 
-	
-	
-	
 	/**
 	 * 
 	 * @return
 	 */
-	public Fabricante findLast () {
+	public Fabricante findLast() {
 		try {
 			EntityManager em = getEntityManagerFactory().createEntityManager();
 			Query q = em.createQuery("SELECT c FROM Fabricante c order by c.id desc", Fabricante.class);
 			Fabricante resultado = (Fabricante) q.setMaxResults(1).getSingleResult();
 			em.close();
 			return resultado;
-		}
-		catch (NoResultException nrEx) {
+		} catch (NoResultException nrEx) {
 			return null;
 		}
 	}
 
-	
-	
-	
 	/**
 	 * 
 	 * @return
 	 */
-	public Fabricante findNext (Fabricante c) {
+	public Fabricante findNext(Fabricante c) {
 		try {
 			EntityManager em = getEntityManagerFactory().createEntityManager();
-			Query q = em.createQuery("SELECT c FROM Fabricante c where c.id > :idActual order by c.id", Fabricante.class);
+			Query q = em.createQuery("SELECT c FROM Fabricante c where c.id > :idActual order by c.id",
+					Fabricante.class);
 			q.setParameter("idActual", c.getId());
 			Fabricante resultado = (Fabricante) q.setMaxResults(1).getSingleResult();
 			em.close();
 			return resultado;
-		}
-		catch (NoResultException nrEx) {
+		} catch (NoResultException nrEx) {
 			return null;
 		}
 	}
 
-	
-	
-	
 	/**
 	 * 
 	 * @return
 	 */
-	public Fabricante findPrevious (Fabricante c) {
+	public Fabricante findPrevious(Fabricante c) {
 		try {
 			EntityManager em = getEntityManagerFactory().createEntityManager();
-			Query q = em.createQuery("SELECT c FROM Fabricante c where c.id < :idActual order by c.id desc", Fabricante.class);
+			Query q = em.createQuery("SELECT c FROM Fabricante c where c.id < :idActual order by c.id desc",
+					Fabricante.class);
 			q.setParameter("idActual", c.getId());
 			Fabricante resultado = (Fabricante) q.setMaxResults(1).getSingleResult();
 			em.close();
 			return resultado;
-		}
-		catch (NoResultException nrEx) {
+		} catch (NoResultException nrEx) {
 			return null;
 		}
 	}
 
-	
-	
 	/**
 	 * 
 	 * @param coche
@@ -127,47 +109,40 @@ public class FabricanteControlador extends Controlador {
 	 */
 	public boolean exists(Fabricante fab) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
-		
+
 		boolean ok = true;
 		try {
 			Query q = em.createNativeQuery("SELECT * FROM tutorialjavacoches.coche where id = ?", Fabricante.class);
 			q.setParameter(1, fab.getId());
-			fab = (Fabricante) q.getSingleResult(); 
-		}
-		catch (NoResultException ex) {
+			fab = (Fabricante) q.getSingleResult();
+		} catch (NoResultException ex) {
 			ok = false;
 		}
 		em.close();
 		return ok;
 	}
-	
-	
-	
-	public List<Fabricante> findAllFabricantes () {
+
+	public List<Fabricante> findAllFabricantes() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		Query q = em.createQuery("SELECT c FROM Fabricante c", Fabricante.class);
+		@SuppressWarnings("unchecked")
 		List<Fabricante> resultado = (List<Fabricante>) q.getResultList();
 		em.close();
 		return resultado;
 	}
-	
 
-	
-	public static String toString (Fabricante fabricante) {
-		return fabricante.getNombre() + " " + fabricante.getCif(); 
+	public static String toString(Fabricante fabricante) {
+		return fabricante.getNombre() + " " + fabricante.getCif();
 	}
 
 	public void modify(Fabricante fabricante) {
-		
+
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
 		em.persist(fabricante);
 		em.getTransaction().commit();
 		em.close();
-		
-	}
-	
 
-	
+	}
 
 }

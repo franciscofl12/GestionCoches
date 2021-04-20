@@ -9,7 +9,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-
 public class Controlador {
 
 	private static EntityManagerFactory entityManagerFactory;
@@ -53,8 +52,7 @@ public class Controlador {
 			return null;
 		}
 	}
-	
-	
+
 	/**
 	 * 
 	 */
@@ -96,12 +94,11 @@ public class Controlador {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		if (e.getId() != 0) {
 			merge(e);
-		}
-		else {
+		} else {
 			persist(e);
 		}
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -117,20 +114,19 @@ public class Controlador {
 		em.close();
 	}
 
-	
 	/**
 	 * 
 	 * @return
 	 */
-	public Entidad findFirst () {
+	public Entidad findFirst() {
 		try {
 			EntityManager em = getEntityManagerFactory().createEntityManager();
-			Query q = em.createQuery("SELECT e FROM " + this.nombreEntidadControlada + " e order by e.id", Entidad.class);
+			Query q = em.createQuery("SELECT e FROM " + this.nombreEntidadControlada + " e order by e.id",
+					Entidad.class);
 			Entidad resultado = (Entidad) q.setMaxResults(1).getSingleResult();
 			em.close();
 			return resultado;
-		}
-		catch (NoResultException nrEx) {
+		} catch (NoResultException nrEx) {
 			return null;
 		}
 	}
@@ -139,15 +135,15 @@ public class Controlador {
 	 * 
 	 * @return
 	 */
-	public Entidad findLast () {
+	public Entidad findLast() {
 		try {
 			EntityManager em = getEntityManagerFactory().createEntityManager();
-			Query q = em.createQuery("SELECT e FROM " + this.nombreEntidadControlada + " e order by e.id desc", Entidad.class);
+			Query q = em.createQuery("SELECT e FROM " + this.nombreEntidadControlada + " e order by e.id desc",
+					Entidad.class);
 			Entidad resultado = (Entidad) q.setMaxResults(1).getSingleResult();
 			em.close();
 			return resultado;
-		}
-		catch (NoResultException nrEx) {
+		} catch (NoResultException nrEx) {
 			return null;
 		}
 	}
@@ -156,49 +152,48 @@ public class Controlador {
 	 * 
 	 * @return
 	 */
-	public Entidad findNext (Entidad e) {
+	public Entidad findNext(Entidad e) {
 		try {
 			EntityManager em = getEntityManagerFactory().createEntityManager();
-			Query q = em.createQuery("SELECT e FROM " + this.nombreEntidadControlada + " e where e.id > :idActual order by e.id", Entidad.class);
+			Query q = em.createQuery(
+					"SELECT e FROM " + this.nombreEntidadControlada + " e where e.id > :idActual order by e.id",
+					Entidad.class);
 			q.setParameter("idActual", e.getId());
 			Entidad resultado = (Entidad) q.setMaxResults(1).getSingleResult();
 			em.close();
 			return resultado;
-		}
-		catch (NoResultException nrEx) {
+		} catch (NoResultException nrEx) {
 			return null;
 		}
 	}
 
-	
-	
-	
 	/**
 	 * 
 	 * @return
 	 */
-	public Entidad findPrevious (Entidad e) {
+	public Entidad findPrevious(Entidad e) {
 		try {
 			EntityManager em = getEntityManagerFactory().createEntityManager();
-			Query q = em.createQuery("SELECT e FROM " + this.nombreEntidadControlada + " e where e.id < :idActual order by e.id desc", Entidad.class);
+			Query q = em.createQuery(
+					"SELECT e FROM " + this.nombreEntidadControlada + " e where e.id < :idActual order by e.id desc",
+					Entidad.class);
 			q.setParameter("idActual", e.getId());
 			Entidad resultado = (Entidad) q.setMaxResults(1).getSingleResult();
 			em.close();
 			return resultado;
-		}
-		catch (NoResultException nrEx) {
+		} catch (NoResultException nrEx) {
 			return null;
 		}
 	}
-	
-	
+
 	/**
 	 * 
 	 */
-	public List<Entidad> findAll () {
+	public List<Entidad> findAll() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 
-		TypedQuery<Entidad> q = em.createQuery("SELECT e FROM " + this.nombreEntidadControlada + " e", this.entidadControlada);
+		TypedQuery<Entidad> q = em.createQuery("SELECT e FROM " + this.nombreEntidadControlada + " e",
+				this.entidadControlada);
 
 		List<Entidad> entidades = (List<Entidad>) q.getResultList();
 
